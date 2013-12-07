@@ -2797,7 +2797,7 @@ bool LoadBlockIndex()
         pchMessageStart[1] = 0xc1;
         pchMessageStart[2] = 0xb7;
         pchMessageStart[3] = 0xdc;
-        hashGenesisBlock = uint256("0xd95b5772b93db704182000ff90807cf1e4145e6bc0a3fb73425d9d6fab94ce40");
+        hashGenesisBlock = uint256("0x0f6538c42e95f464c408fc4cebd2059ad4311567fd258cd07d49b57654b35f57");
     }
 
     //
@@ -2823,14 +2823,21 @@ bool InitBlockIndex() {
     // Only add the genesis block if not reindexing (in which case we reuse the one already on disk)
     if (!fReindex) {
         // Genesis Block:
-        // CBlock(hash=12a765e31ffd4059bada, PoW=0000050c34a64b415b6b, ver=1, hashPrevBlock=00000000000000000000, hashMerkleRoot=97ddfbbae6, nTime=1317972665, nBits=1e0ffff0, nNonce=2084524493, vtx=1)
-        //   CTransaction(hash=97ddfbbae6, ver=1, vin.size=1, vout.size=1, nLockTime=0)
-        //     CTxIn(COutPoint(0000000000, -1), coinbase 04ffff001d0104404e592054696d65732030352f4f63742f32303131205374657665204a6f62732c204170706c65e280997320566973696f6e6172792c2044696573206174203536)
-        //     CTxOut(nValue=50.00000000, scriptPubKey=040184710fa689ad5023690c80f3a4)
-        //   vMerkleTree: 97ddfbbae6
+        // CBlock( // Testnet
+        //      hash=0f6538c42e95f464c408fc4cebd2059ad4311567fd258cd07d49b57654b35f57, 
+        //      input=010000000000000000000000000000000000000000000000000000000000000000000000699f55698b36c5bcdc8af7f69a7ac928e948bfded83521f0dc24b9de947a2da0389ba252f0ff0f1e02412500, 
+        //      PoW=0000023e59a270059400991482018626c37a03dc7b193715fbd61c2828477869, 
+        //      ver=1, 
+        //      hashPrevBlock=0000000000000000000000000000000000000000000000000000000000000000, 
+        //      hashMerkleRoot=a02d7a94deb924dcf02135d8debf48e928c97a9af6f78adcbcc5368b69559f69, 
+        //      nTime=1386388280, 
+        //      nBits=1e0ffff0, 
+        //      nNonce=2441474, 
+        //      vtx=1
+        // )
 
         // Genesis block
-        const char* pszTimestamp = "NY Times 07/Dez/2013 Nelson Mandela, South Africas Liberator as Prisoner and President, Dies at 95";
+        const char* pszTimestamp = "NY Times 07/Dez/2013 Nelson Mandela, South Africas Liberator as Prisoner and President, Dies at 95.";
         CTransaction txNew;
         txNew.vin.resize(1);
         txNew.vout.resize(1);
@@ -2842,14 +2849,14 @@ bool InitBlockIndex() {
         block.hashPrevBlock = 0;
         block.hashMerkleRoot = block.BuildMerkleTree();
         block.nVersion = 1;
-        block.nTime    = 1386388170;
+        block.nTime    = 1386388270;
         block.nBits    = 0x1e0ffff0;
         block.nNonce   = 2135973;
 
         if (fTestNet)
         {
-            block.nTime    = 1386388180;
-            block.nNonce   = 1543468;
+            block.nTime    = 1386388280;
+            block.nNonce   = 2441474;
         }
 
         //// debug print LITECOIN
@@ -2865,7 +2872,7 @@ bool InitBlockIndex() {
         printf("%s\n", block.GetHash().ToString().c_str());
         printf("%s\n", hashGenesisBlock.ToString().c_str());
         printf("%s\n", block.hashMerkleRoot.ToString().c_str());
-        assert(block.hashMerkleRoot == uint256("0x109a9c3d86139bad6a6d5c15937351e878fd7a3688c9608a3571799a617b4983"));
+        assert(block.hashMerkleRoot == uint256("0xa02d7a94deb924dcf02135d8debf48e928c97a9af6f78adcbcc5368b69559f69"));
 
         // If genesis block hash does not match, then generate new genesis hash.
         if (block.GetHash() != hashGenesisBlock)
