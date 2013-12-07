@@ -350,7 +350,7 @@ inline int64 GetTimeMicros()
 
 inline std::string DateTimeStrFormat(const char* pszFormat, int64 nTime)
 {
-    time_t n = nTime;
+    time_t n = (time_t) nTime;
     struct tm* ptmTime = gmtime(&n);
     char pszTime[200];
     strftime(pszTime, sizeof(pszTime), pszFormat, ptmTime);
